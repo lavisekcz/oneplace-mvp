@@ -1,3 +1,1 @@
-# OnePlace MVP
-
-Minimal Next.js 13+ App Router setup.
+# OnePlace MVP – Clean version for Vercel
