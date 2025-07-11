@@ -8,7 +8,9 @@ export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<string[]>([]);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [experts, setExperts] = useState<{ slug: string; name: string; profession: string; avatar: string }[]>([]);
 
+  // Vyhledávání – používá RELATIVNÍ CESTU!
   useEffect(() => {
     if (searchQuery) {
       fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`)
@@ -20,11 +22,18 @@ export default function HomePage() {
     }
   }, [searchQuery]);
 
+  // Fetch odborníků – používá RELATIVNÍ CESTU!
+  useEffect(() => {
+    fetch('/api/experts')
+      .then(res => res.json())
+      .then(setExperts)
+      .catch(e => console.error('Error fetching experts:', e));
+  }, []);
+
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
   };
 
-  // Menu položky
   const menuLinks = [
     { href: "/professionals", label: "Pro Profíky", icon: <FaUserTie /> },
     { href: "/clients", label: "Pro Klienty", icon: <FaUser /> },
@@ -41,7 +50,6 @@ export default function HomePage() {
       <nav className="bg-gray-900 text-white sticky top-0 z-20 shadow-md hidden md:block">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-8 py-3">
           <Link href="/" className="flex items-center gap-2 text-3xl font-bold text-green-500">
-            {/* Houzz styl: zelený název */}
             ONEPLACE
           </Link>
           <div className="flex items-center space-x-6">
@@ -60,7 +68,7 @@ export default function HomePage() {
         </div>
       </nav>
 
-      {/* Mobilní Navigace (Houzz styl) */}
+      {/* Mobilní Navigace */}
       <div className="md:hidden bg-gray-900 px-4 py-3 flex justify-between items-center sticky top-0 z-30">
         <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-green-500">
           ONEPLACE
@@ -73,7 +81,6 @@ export default function HomePage() {
           <FaBars />
         </button>
       </div>
-      {/* Mobilní Fullscreen Menu Overlay */}
       {isMenuOpen && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-95 z-50 flex flex-col">
           <div className="flex justify-between items-center px-6 py-4">
@@ -171,23 +178,24 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Vybraní profesionálové */}
+      {/* Vybraní profesionálové – napojeno na backend! */}
       <section className="py-12 bg-gray-100">
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">Vybraní Profesionálové</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white p-4 rounded-lg shadow-md">
-              <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-sm">Top Rated</span>
-              <p className="mt-2">Jan Novák - Elektrikář</p>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-md">
-              <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-sm">Top Rated</span>
-              <p className="mt-2">Petr Svoboda - Tesař</p>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-md">
-              <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-sm">Top Rated</span>
-              <p className="mt-2">Marie Dvořáková - Malířka</p>
-            </div>
+            {experts.length === 0 ? (
+              <div className="col-span-3 text-center text-gray-500">Načítám odborníky...</div>
+            ) : (
+              experts.map(expert => (
+                <div key={expert.slug} className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
+                  <img src={expert.avatar} alt={expert.name} className="w-16 h-16 rounded-full object-cover mb-2 border-2 border-green-600" />
+                  <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-sm mb-2">Top Rated</span>
+                  <p className="mt-2 font-semibold">{expert.name}</p>
+                  <p className="text-gray-600">{expert.profession}</p>
+                  <Link href={`/odbornici/${expert.slug}`} className="text-green-700 hover:underline mt-2 text-sm">Detail</Link>
+                </div>
+              ))
+            )}
           </div>
         </div>
       </section>
