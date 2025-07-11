@@ -100,7 +100,8 @@ export default function ServiceDetailPage() {
         <section className="mt-8">
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">Doporučení odborníci</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {service.experts.map((expert, idx) => (
+            {/* Opraveno: '_idx' je zcela odebráno, protože se nepoužívá */}
+            {service.experts.map((expert) => (
               <div key={expert.name} className="bg-white rounded-lg shadow p-4 flex flex-col items-center">
                 <span className="font-bold text-lg">{expert.name}</span>
                 <span className="text-gray-500">{expert.city}</span>

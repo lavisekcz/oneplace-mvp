@@ -7,11 +7,32 @@ import FormInput from './components/FormInput';
 import ExpertCards from './components/ExpertCards';
 import ServiceCard from './components/ServiceCard';
 
+// Základní definice typů pro služby a experty.
+// Upřesněno: Odebráno [key: string]: any; pro striktnější typovou kontrolu.
+// Měli byste zde přidat VŠECHNY skutečné vlastnosti, které vaše API vrací pro Service a Expert.
+interface Service {
+  slug: string;
+  name: string; // Předpokládám, že služba má jméno
+  desc: string; // Předpokládám, že služba má popis
+  // Přidejte další vlastnosti služby zde, např.:
+  // price: number;
+}
+
+interface Expert {
+  slug: string; // Předpokládám, že expert má slug
+  name: string; // Předpokládám, že expert má jméno
+  profession: string; // Předpokládám, že expert má profesi
+  avatar: string; // Předpokládám, že expert má avatar
+  rating?: number; // Předpokládám, že expert může mít hodnocení
+  // Přidejte další vlastnosti expertů zde, např.:
+  // city: string;
+}
+
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<string[]>([]);
-  const [experts, setExperts] = useState<any[]>([]);
-  const [services, setServices] = useState<any[]>([]);
+  const [experts, setExperts] = useState<Expert[]>([]);
+  const [services, setServices] = useState<Service[]>([]);
 
   useEffect(() => {
     fetch('/api/experts').then(res => res.json()).then(setExperts);
@@ -44,8 +65,8 @@ export default function HomePage() {
           </form>
           {searchResults.length > 0 && (
             <div className="mt-4 max-w-md mx-auto bg-white rounded-lg shadow-md p-2">
-              {searchResults.map((result, idx) => (
-                <div key={idx} className="text-gray-700">{result}</div>
+              {searchResults.map((result, _idx) => (
+                <div key={_idx} className="text-gray-700">{result}</div>
               ))}
             </div>
           )}
@@ -54,7 +75,7 @@ export default function HomePage() {
         <section className="py-12 max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">Naše Služby</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {services.map((service: any) => (
+            {services.map((service: Service) => (
               <ServiceCard key={service.slug} service={service} />
             ))}
           </div>

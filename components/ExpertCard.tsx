@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image'; // Importujeme komponentu Image
 
 type Expert = {
   slug: string;
@@ -20,7 +21,14 @@ export default function ExpertCards({ experts }: ExpertCardsProps) {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {experts.map(expert => (
         <div key={expert.slug} className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
-          <img src={expert.avatar} alt={expert.name} className="w-16 h-16 rounded-full object-cover mb-2 border-2 border-green-600" />
+          {/* Opraveno: Nahrazeno <img> komponentou <Image /> */}
+          <Image
+            src={expert.avatar}
+            alt={expert.name}
+            width={64} // w-16 odpovídá 64px
+            height={64} // h-16 odpovídá 64px
+            className="w-16 h-16 rounded-full object-cover mb-2 border-2 border-green-600"
+          />
           <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-sm mb-2">Top Rated</span>
           <p className="mt-2 font-semibold">{expert.name}</p>
           <p className="text-gray-600">{expert.profession}</p>

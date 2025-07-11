@@ -2,13 +2,14 @@
 
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image'; // Importujeme komponentu Image z Next.js
 import { FaStar, FaMapMarkerAlt, FaInfoCircle } from 'react-icons/fa';
-import { experts } from '../data';
+import { experts } from '../data'; // Předpokládá se, že experts z '../data' jsou správně typované
 
 export default function ExpertOverviewPage() {
   const params = useParams();
   const slug = typeof params.slug === 'string' ? params.slug : Array.isArray(params.slug) ? params.slug[0] : '';
-  const expert = experts[slug as keyof typeof experts];
+  const expert = experts[slug as keyof typeof experts]; // Předpokládá se, že typ 'experts' v data.ts je definován tak, aby to bylo bezpečné
 
   if (!expert) {
     return (
@@ -22,9 +23,12 @@ export default function ExpertOverviewPage() {
   return (
     <main className="max-w-2xl mx-auto px-4 py-12">
       <div className="flex flex-col items-center">
-        <img
+        {/* Opraveno: Nahrazeno <img> komponentou <Image /> pro optimalizaci */}
+        <Image
           src={expert.avatar}
           alt={expert.name}
+          width={112} // Původní w-28 h-28 je 112px x 112px
+          height={112} // Specifikujte šířku a výšku
           className="w-28 h-28 rounded-full object-cover border-4 border-green-500 mb-4"
         />
         <h1 className="text-3xl font-bold text-gray-900">{expert.name}</h1>
