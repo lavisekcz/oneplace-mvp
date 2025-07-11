@@ -21,7 +21,6 @@ export default function HomePage() {
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    // API call is handled by useEffect
   };
 
   return (
@@ -30,7 +29,7 @@ export default function HomePage() {
       <nav className="bg-gray-800 text-white sticky top-0 z-10 shadow-md">
         <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
           <div className="flex items-center space-x-4">
-            <span className="text-2xl font-bold">🏠 ONEPLACE</span> {/* Placeholder pro logo */}
+            <span className="text-2xl font-bold">🏠 ONEPLACE</span>
           </div>
           <div className="hidden md:flex items-center space-x-8">
             <div className="relative group">
@@ -52,6 +51,7 @@ export default function HomePage() {
             <Link href="#sustainability" className="hover:text-gray-300">Udržitelnost & Smart</Link>
             <Link href="#magazine" className="hover:text-gray-300">Magazín</Link>
             <Link href="#academy" className="hover:text-gray-300">Academy</Link>
+            <span className="hover:text-gray-300">🇬🇧 EN</span>
           </div>
           <div className="hidden md:flex items-center space-x-6">
             <button className="hover:text-gray-300">Sign In</button>
@@ -77,7 +77,7 @@ export default function HomePage() {
         <div className="md:hidden absolute top-16 right-4 bg-white shadow-md rounded-lg p-4 z-10 w-48">
           <Link href="#professionals" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Pro Profíky</Link>
           <Link href="#clients" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Pro Klienty</Link>
-          <Link href="#eshop" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>E-shop</Link>
+          <Link href="#eshop" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)>E-shop</Link>
           <Link href="#properties" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Nemovitosti</Link>
           <Link href="#sustainability" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Udržitelnost & Smart</Link>
           <Link href="#magazine" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Magazín</Link>
