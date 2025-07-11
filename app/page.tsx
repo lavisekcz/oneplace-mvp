@@ -1,28 +1,6 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 export default function HomePage() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<string[]>([]);
-
-  useEffect(() => {
-    if (searchQuery) {
-      fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`)
-        .then((res) => res.json())
-        .then((data) => setSearchResults(data.map((item: { name: string }) => item.name)))
-        .catch((error) => console.error('Error fetching search results:', error));
-    } else {
-      setSearchResults([]);
-    }
-  }, [searchQuery]);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    // API call is handled by useEffect
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
       {/* Navigace */}
@@ -48,23 +26,14 @@ export default function HomePage() {
         <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
           Connect with trusted professionals for all your home service needs. Get quality work done by experienced experts in your area.
         </p>
-        <form onSubmit={handleSearch} className="max-w-md mx-auto flex items-center bg-white rounded-lg shadow-md overflow-hidden">
+        <div className="max-w-md mx-auto flex items-center bg-white rounded-lg shadow-md overflow-hidden">
           <input
             type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="What do you need help with today?"
             className="flex-grow p-3 border-none focus:outline-none"
           />
-          <button type="submit" className="bg-green-600 text-white px-6 py-3 hover:bg-green-700">Search Services</button>
-        </form>
-        {searchResults.length > 0 && (
-          <div className="mt-4 max-w-md mx-auto bg-white rounded-lg shadow-md p-2">
-            {searchResults.map((result, index) => (
-              <div key={index} className="text-gray-700">{result}</div>
-            ))}
-          </div>
-        )}
+          <button className="bg-green-600 text-white px-6 py-3 hover:bg-green-700">Search Services</button>
+        </div>
       </section>
 
       {/* Kategorie */}
