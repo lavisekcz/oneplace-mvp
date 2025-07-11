@@ -1,258 +1,74 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { FaBars, FaTimes, FaUserTie, FaUser, FaShoppingCart, FaBuilding, FaLeaf, FaBookOpen, FaGraduationCap, FaSignInAlt, FaRegRegistered, FaChair, FaCubes, FaLightbulb } from 'react-icons/fa';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import FormInput from './components/FormInput';
+import ExpertCards from './components/ExpertCards';
+import ServiceCard from './components/ServiceCard';
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<string[]>([]);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [experts, setExperts] = useState<{ slug: string; name: string; profession: string; avatar: string }[]>([]);
+  const [experts, setExperts] = useState<any[]>([]);
+  const [services, setServices] = useState<any[]>([]);
 
-  // Vyhledávání – používá RELATIVNÍ CESTU!
+  useEffect(() => {
+    fetch('/api/experts').then(res => res.json()).then(setExperts);
+    fetch('/api/services').then(res => res.json()).then(setServices);
+  }, []);
+
   useEffect(() => {
     if (searchQuery) {
       fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`)
-        .then((res) => res.json())
-        .then((data) => setSearchResults(data.map((item: { name: string }) => item.name)))
-        .catch((error) => console.error('Error fetching search results:', error));
+        .then(res => res.json())
+        .then(data => setSearchResults(data.map((item: { name: string }) => item.name)));
     } else {
       setSearchResults([]);
     }
   }, [searchQuery]);
 
-  // Fetch odborníků – používá RELATIVNÍ CESTU!
-  useEffect(() => {
-    fetch('/api/experts')
-      .then(res => res.json())
-      .then(setExperts)
-      .catch(e => console.error('Error fetching experts:', e));
-  }, []);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-  };
-
-  const menuLinks = [
-    { href: "/professionals", label: "Pro Profíky", icon: <FaUserTie /> },
-    { href: "/clients", label: "Pro Klienty", icon: <FaUser /> },
-    { href: "/eshop", label: "E-shop", icon: <FaShoppingCart /> },
-    { href: "/properties", label: "Nemovitosti", icon: <FaBuilding /> },
-    { href: "/sustainability", label: "Udržitelnost & Smart", icon: <FaLeaf /> },
-    { href: "/magazine", label: "Magazín", icon: <FaBookOpen /> },
-    { href: "/academy", label: "Academy", icon: <FaGraduationCap /> },
-  ];
-
   return (
-    <div className="min-h-screen bg-gray-50 font-sans">
-      {/* Desktop Navigace */}
-      <nav className="bg-gray-900 text-white sticky top-0 z-20 shadow-md hidden md:block">
-        <div className="max-w-7xl mx-auto flex justify-between items-center px-8 py-3">
-          <Link href="/" className="flex items-center gap-2 text-3xl font-bold text-green-500">
-            ONEPLACE
-          </Link>
-          <div className="flex items-center space-x-6">
-            {menuLinks.map(link => (
-              <Link key={link.href} href={link.href} className="flex items-center gap-2 hover:text-green-400 transition">
-                {link.icon}
-                <span>{link.label}</span>
-              </Link>
-            ))}
-            <span className="hover:text-green-400 cursor-pointer">EN</span>
-          </div>
-          <div className="flex items-center space-x-4">
-            <button className="flex items-center gap-2 hover:text-green-400 transition"><FaSignInAlt />Sign In</button>
-            <button className="flex items-center gap-2 bg-green-600 px-4 py-2 rounded hover:bg-green-700 transition text-white"><FaRegRegistered />Register</button>
-          </div>
-        </div>
-      </nav>
+    <div className="min-h-screen bg-gray-50 font-sans flex flex-col">
+      <Header />
 
-      {/* Mobilní Navigace */}
-      <div className="md:hidden bg-gray-900 px-4 py-3 flex justify-between items-center sticky top-0 z-30">
-        <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-green-500">
-          ONEPLACE
-        </Link>
-        <button
-          onClick={() => setIsMenuOpen(true)}
-          className="text-white text-3xl focus:outline-none"
-          aria-label="Open menu"
-        >
-          <FaBars />
-        </button>
-      </div>
-      {isMenuOpen && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-95 z-50 flex flex-col">
-          <div className="flex justify-between items-center px-6 py-4">
-            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-green-500">ONEPLACE</Link>
-            <button
-              onClick={() => setIsMenuOpen(false)}
-              className="text-white text-3xl focus:outline-none"
-              aria-label="Close menu"
-            >
-              <FaTimes />
-            </button>
-          </div>
-          <div className="flex flex-col mt-8 space-y-6 px-8">
-            {menuLinks.map(link => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="flex items-center gap-4 text-lg text-white hover:text-green-400 py-2"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <span className="text-2xl">{link.icon}</span>
-                {link.label}
-              </Link>
-            ))}
-            <span className="flex items-center gap-4 text-lg text-white hover:text-green-400 py-2 cursor-pointer">
-              EN
-            </span>
-            <button
-              className="flex items-center gap-4 text-lg text-white hover:text-green-400 py-2"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <FaSignInAlt />
-              Sign In
-            </button>
-            <button
-              className="flex items-center gap-4 text-lg bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <FaRegRegistered />
-              Register
-            </button>
-          </div>
-        </div>
-      )}
+      <main className="flex-1">
+        <section className="py-16 bg-gradient-to-b from-teal-50 to-white text-center">
+          <h1 className="text-5xl font-bold text-teal-800 mb-4">Vítejte v ONEPLACE</h1>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
+            Propojujeme klienty a profesionály v bydlení a nemovitostech. Najděte důvěryhodné služby a produkty s lehkostí.
+          </p>
+          <form className="max-w-md mx-auto flex items-center bg-white rounded-lg shadow-md mt-6 overflow-hidden">
+            <FormInput value={searchQuery} onChange={setSearchQuery} placeholder="Co potřebujete dnes vyřídit?" />
+            <button type="submit" className="bg-green-600 text-white px-6 py-3 hover:bg-green-700">Hledat</button>
+          </form>
+          {searchResults.length > 0 && (
+            <div className="mt-4 max-w-md mx-auto bg-white rounded-lg shadow-md p-2">
+              {searchResults.map((result, idx) => (
+                <div key={idx} className="text-gray-700">{result}</div>
+              ))}
+            </div>
+          )}
+        </section>
 
-      {/* Úvodní banner */}
-      <section className="py-16 bg-gradient-to-b from-teal-50 to-white text-center">
-        <h1 className="text-5xl font-bold text-teal-800 mb-4">Vítejte v ONEPLACE</h1>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-6">
-          Propojujeme klienty a profesionály v bydlení a nemovitostech. Najděte důvěryhodné služby a produkty s lehkostí.
-        </p>
-        <div className="space-x-4">
-          <button className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700">Najděte profesionála</button>
-          <button className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700">Nakupte produkty</button>
-          <button className="bg-green-600 text-white px-6 py-3 rounded hover:bg-green-700">Zaregistrujte se</button>
-        </div>
-        <form onSubmit={handleSearch} className="max-w-md mx-auto flex items-center bg-white rounded-lg shadow-md mt-6 overflow-hidden">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Co potřebujete dnes vyřídit?"
-            className="flex-grow p-3 border-none focus:outline-none"
-          />
-          <button type="submit" className="bg-green-600 text-white px-6 py-3 hover:bg-green-700">Hledat</button>
-        </form>
-        {searchResults.length > 0 && (
-          <div className="mt-4 max-w-md mx-auto bg-white rounded-lg shadow-md p-2">
-            {searchResults.map((result, index) => (
-              <div key={index} className="text-gray-700">{result}</div>
+        <section className="py-12 max-w-7xl mx-auto px-4">
+          <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">Naše Služby</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {services.map((service: any) => (
+              <ServiceCard key={service.slug} service={service} />
             ))}
           </div>
-        )}
-      </section>
+        </section>
 
-      {/* Přehled služeb */}
-      <section className="py-12 max-w-7xl mx-auto px-4">
-        <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">Naše Služby</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="text-center">
-            <FaUserTie className="mx-auto text-4xl text-green-600" />
-            <h3 className="text-xl font-semibold mt-2">Pro Profíky</h3>
-            <p className="text-gray-600 mt-2">Získejte zakázky a spravujte svůj profil.</p>
+        <section className="py-12 bg-gray-100">
+          <div className="max-w-7xl mx-auto px-4">
+            <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">Vybraní Profesionálové</h2>
+            <ExpertCards experts={experts} />
           </div>
-          <div className="text-center">
-            <FaUser className="mx-auto text-4xl text-green-600" />
-            <h3 className="text-xl font-semibold mt-2">Pro Klienty</h3>
-            <p className="text-gray-600 mt-2">Najděte profesionály a spravujte projekty.</p>
-          </div>
-          <div className="text-center">
-            <FaShoppingCart className="mx-auto text-4xl text-green-600" />
-            <h3 className="text-xl font-semibold mt-2">E-shop</h3>
-            <p className="text-gray-600 mt-2">Nakupte nábytek a materiály.</p>
-          </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
-      {/* Vybraní profesionálové – napojeno na backend! */}
-      <section className="py-12 bg-gray-100">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">Vybraní Profesionálové</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {experts.length === 0 ? (
-              <div className="col-span-3 text-center text-gray-500">Načítám odborníky...</div>
-            ) : (
-              experts.map(expert => (
-                <div key={expert.slug} className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center">
-                  <img src={expert.avatar} alt={expert.name} className="w-16 h-16 rounded-full object-cover mb-2 border-2 border-green-600" />
-                  <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-sm mb-2">Top Rated</span>
-                  <p className="mt-2 font-semibold">{expert.name}</p>
-                  <p className="text-gray-600">{expert.profession}</p>
-                  <Link href={`/odbornici/${expert.slug}`} className="text-green-700 hover:underline mt-2 text-sm">Detail</Link>
-                </div>
-              ))
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* Doporučené produkty */}
-      <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">Doporučené Produkty</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white p-4 rounded-lg shadow-md flex items-center gap-3">
-              <FaChair className="text-3xl text-green-600" />
-              <div>
-                <span className="text-gray-600">Nábytek</span>
-                <p className="mt-2">Moderní židle - 5 000 Kč</p>
-              </div>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-md flex items-center gap-3">
-              <FaCubes className="text-3xl text-green-600" />
-              <div>
-                <span className="text-gray-600">Stavební materiály</span>
-                <p className="mt-2">Cihly - 2 000 Kč</p>
-              </div>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-md flex items-center gap-3">
-              <FaLightbulb className="text-3xl text-green-600" />
-              <div>
-                <span className="text-gray-600">Chytrá domácnost</span>
-                <p className="mt-2">Chytrá žárovka - 1 500 Kč</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Nejnovější články z Magazínu */}
-      <section className="py-12 bg-gray-100">
-        <div className="max-w-7xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">Nejnovější z Magazínu</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white p-4 rounded-lg shadow-md">
-              <FaBookOpen className="text-2xl text-green-600 mb-2" />
-              <p className="text-gray-600">Inspirace & Trendy</p>
-              <p className="mt-2">Nové trendy v interiéru 2025</p>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-md">
-              <FaLeaf className="text-2xl text-green-600 mb-2" />
-              <p className="text-gray-600">Odborné články</p>
-              <p className="mt-2">Jak vybrat elektroinstalaci</p>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow-md">
-              <FaUserTie className="text-2xl text-green-600 mb-2" />
-              <p className="text-gray-600">Rozhovory</p>
-              <p className="mt-2">Rozhovor s top malířem</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <Footer />
     </div>
   );
 }
