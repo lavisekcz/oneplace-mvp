@@ -6,7 +6,6 @@ import Link from 'next/link';
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<string[]>([]);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     if (searchQuery) {
@@ -31,37 +30,15 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div className="flex items-center space-x-4">
             <span className="text-2xl font-bold text-green-700">🏠 DomFix</span>
-          </div>
-          <div className="md:hidden">
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-gray-600 focus:outline-none"
-              aria-label="Toggle menu"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-              </svg>
-            </button>
-          </div>
-          <div className="hidden md:flex items-center space-x-4">
             <Link href="#professionals" className="text-gray-600 hover:text-gray-900">Professionals</Link>
             <Link href="#search" className="text-gray-600 hover:text-gray-900">Search Services</Link>
             <Link href="#how-it-works" className="text-gray-600 hover:text-gray-900">How it Works</Link>
+          </div>
+          <div className="flex items-center space-x-4">
             <span className="text-gray-600">🇬🇧 EN</span>
             <button className="text-gray-600 hover:text-gray-900">Sign In</button>
             <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Register</button>
           </div>
-          {isMenuOpen && (
-            <div className="md:hidden absolute top-16 right-4 bg-white shadow-md rounded-lg p-4 z-10 w-48">
-              <Link href="#professionals" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Professionals</Link>
-              <Link href="#search" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Search Services</Link>
-              <Link href="#how-it-works" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>How it Works</Link>
-              <div className="border-t my-2"></div>
-              <span className="block text-gray-600 py-2" onClick={() => setIsMenuOpen(false)}>🇬🇧 EN</span>
-              <button className="block text-gray-600 hover:text-gray-900 py-2 w-full text-left" onClick={() => setIsMenuOpen(false)}>Sign In</button>
-              <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mt-2 w-full" onClick={() => setIsMenuOpen(false)}>Register</button>
-            </div>
-          )}
         </div>
       </nav>
 
