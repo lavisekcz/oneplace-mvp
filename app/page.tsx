@@ -42,8 +42,8 @@ export default function HomePage() {
             <div className="relative group">
               <Link href="/clients" className="hover:text-gray-300">Pro Klienty</Link>
               <div className="absolute hidden group-hover:block bg-gray-700 text-white p-2 rounded mt-2 w-48">
-                <Link href="/clients#client-portal" className="block hover:bg-gray-600 p-1">Projektový Portál</Link>
-                <Link href="/clients#client-membership" className="block hover:bg-gray-600 p-1">Členství</Link>
+                <Link href="/clients/portal" className="block hover:bg-gray-600 p-1">Projektový Portál</Link>
+                <Link href="/clients/membership" className="block hover:bg-gray-600 p-1">Členství</Link>
               </div>
             </div>
             <Link href="/eshop" className="hover:text-gray-300">E-shop</Link>
