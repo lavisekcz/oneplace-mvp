@@ -94,4 +94,30 @@ export default function HomePage() {
           <button className="bg-green-100 text-green-700 px-4 py-2 rounded hover:bg-green-200">Home Repairs</button>
           <button className="bg-green-100 text-green-700 px-4 py-2 rounded hover:bg-green-200">Carpentry</button>
           <button className="bg-green-100 text-green-700 px-4 py-2 rounded hover:bg-green-200">Plumbing</button>
-         
+          <button className="bg-green-100 text-green-700 px-4 py-2 rounded hover:bg-green-200">Electrical</button>
+          <button className="bg-green-100 text-green-700 px-4 py-2 rounded hover:bg-green-200">Painting</button>
+          <Link href="#view-all" className="col-span-2 md:col-span-1 text-green-600 hover:underline text-center mt-2">View All</Link>
+        </div>
+      </section>
+
+      {/* Odborník */}
+      <section className="py-16 bg-gradient-to-b from-yellow-50 to-white flex items-center justify-center">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center text-center md:text-left">
+          <div className="md:mr-12">
+            <span className="bg-green-100 text-green-700 px-2 py-1 rounded text-sm">Top Rated Pro</span>
+            <span className="ml-2 bg-blue-100 text-blue-700 px-2 py-1 rounded text-sm">Electrician</span>
+          </div>
+          <img
+            src="https://via.placeholder.com/300x400?text=Professional+Image"
+            alt="Professional"
+            className="w-64 h-80 object-cover rounded-lg shadow-md mt-4 md:mt-0"
+          />
+        </div>
+      </section>
+
+      {/* Sekce s výhodami */}
+      <section className="py-12 max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div>
+          <span className="text-3xl text-green-600">🛡️</span>
+          <h3 className="text-xl font-semibold mt-2">Verified Professionals</h3>
+          <p className="text-gray-600 mt-2">All our professionals
