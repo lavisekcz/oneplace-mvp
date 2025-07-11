@@ -33,24 +33,24 @@ export default function HomePage() {
           </div>
           <div className="hidden md:flex items-center space-x-8">
             <div className="relative group">
-              <Link href="#professionals" className="hover:text-gray-300">Pro Profíky</Link>
+              <Link href="/professionals" className="hover:text-gray-300">Pro Profíky</Link>
               <div className="absolute hidden group-hover:block bg-gray-700 text-white p-2 rounded mt-2 w-48">
-                <Link href="#pro-overview" className="block hover:bg-gray-600 p-1">Přehled Výhod</Link>
-                <Link href="#pro-membership" className="block hover:bg-gray-600 p-1">Členství</Link>
+                <Link href="/professionals#pro-overview" className="block hover:bg-gray-600 p-1">Přehled Výhod</Link>
+                <Link href="/professionals#pro-membership" className="block hover:bg-gray-600 p-1">Členství</Link>
               </div>
             </div>
             <div className="relative group">
-              <Link href="#clients" className="hover:text-gray-300">Pro Klienty</Link>
+              <Link href="/clients" className="hover:text-gray-300">Pro Klienty</Link>
               <div className="absolute hidden group-hover:block bg-gray-700 text-white p-2 rounded mt-2 w-48">
-                <Link href="#client-portal" className="block hover:bg-gray-600 p-1">Projektový Portál</Link>
-                <Link href="#client-membership" className="block hover:bg-gray-600 p-1">Členství</Link>
+                <Link href="/clients#client-portal" className="block hover:bg-gray-600 p-1">Projektový Portál</Link>
+                <Link href="/clients#client-membership" className="block hover:bg-gray-600 p-1">Členství</Link>
               </div>
             </div>
-            <Link href="#eshop" className="hover:text-gray-300">E-shop</Link>
-            <Link href="#properties" className="hover:text-gray-300">Nemovitosti</Link>
-            <Link href="#sustainability" className="hover:text-gray-300">Udržitelnost & Smart</Link>
-            <Link href="#magazine" className="hover:text-gray-300">Magazín</Link>
-            <Link href="#academy" className="hover:text-gray-300">Academy</Link>
+            <Link href="/eshop" className="hover:text-gray-300">E-shop</Link>
+            <Link href="/properties" className="hover:text-gray-300">Nemovitosti</Link>
+            <Link href="/sustainability" className="hover:text-gray-300">Udržitelnost & Smart</Link>
+            <Link href="/magazine" className="hover:text-gray-300">Magazín</Link>
+            <Link href="/academy" className="hover:text-gray-300">Academy</Link>
             <span className="hover:text-gray-300">🇬🇧 EN</span>
           </div>
           <div className="hidden md:flex items-center space-x-6">
@@ -75,13 +75,13 @@ export default function HomePage() {
       </div>
       {isMenuOpen && (
         <div className="md:hidden absolute top-16 right-4 bg-white shadow-md rounded-lg p-4 z-10 w-48">
-          <Link href="#professionals" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Pro Profíky</Link>
-          <Link href="#clients" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Pro Klienty</Link>
-          <Link href="#eshop" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>E-shop</Link>
-          <Link href="#properties" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Nemovitosti</Link>
-          <Link href="#sustainability" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Udržitelnost & Smart</Link>
-          <Link href="#magazine" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Magazín</Link>
-          <Link href="#academy" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Academy</Link>
+          <Link href="/professionals" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Pro Profíky</Link>
+          <Link href="/clients" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Pro Klienty</Link>
+          <Link href="/eshop" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>E-shop</Link>
+          <Link href="/properties" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Nemovitosti</Link>
+          <Link href="/sustainability" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Udržitelnost & Smart</Link>
+          <Link href="/magazine" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Magazín</Link>
+          <Link href="/academy" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Academy</Link>
           <div className="border-t my-2"></div>
           <button className="block text-gray-600 hover:text-gray-900 py-2 w-full text-left" onClick={() => setIsMenuOpen(false)}>Sign In</button>
           <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mt-2 w-full" onClick={() => setIsMenuOpen(false)}>Register</button>
