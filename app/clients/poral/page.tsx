@@ -1,4 +1,4 @@
-// app/professionals/overview/page.tsx
+// app/clients/portal/page.tsx
 export default function ProfessionalsOverviewPage() {
   return (
     <div>
