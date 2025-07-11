@@ -29,7 +29,7 @@ export default function HomePage() {
       <nav className="bg-gray-800 text-white sticky top-0 z-10 shadow-md">
         <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
           <div className="flex items-center space-x-4">
-            <span className="text-2xl font-bold">🏠 ONEPLACE</span>
+            <span className="text-2xl font-bold">ONEPLACE</span>
           </div>
           <div className="hidden md:flex items-center space-x-8">
             <div className="relative group">
