@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link'; // Import Link komponenty
+import Link from 'next/link';
+import { FaBars, FaTimes, FaUserTie, FaUser, FaShoppingCart, FaBuilding, FaLeaf, FaBookOpen, FaGraduationCap, FaSignInAlt, FaRegRegistered, FaChair, FaCubes, FaLightbulb } from 'react-icons/fa';
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -23,68 +24,98 @@ export default function HomePage() {
     e.preventDefault();
   };
 
+  // Menu položky
+  const menuLinks = [
+    { href: "/professionals", label: "Pro Profíky", icon: <FaUserTie /> },
+    { href: "/clients", label: "Pro Klienty", icon: <FaUser /> },
+    { href: "/eshop", label: "E-shop", icon: <FaShoppingCart /> },
+    { href: "/properties", label: "Nemovitosti", icon: <FaBuilding /> },
+    { href: "/sustainability", label: "Udržitelnost & Smart", icon: <FaLeaf /> },
+    { href: "/magazine", label: "Magazín", icon: <FaBookOpen /> },
+    { href: "/academy", label: "Academy", icon: <FaGraduationCap /> },
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
-      {/* Navigace - Desktop */}
-      <nav className="bg-gray-800 text-white sticky top-0 z-10 shadow-md">
-        <div className="max-w-7xl mx-auto flex justify-between items-center p-4">
+      {/* Desktop Navigace */}
+      <nav className="bg-gray-900 text-white sticky top-0 z-20 shadow-md hidden md:block">
+        <div className="max-w-7xl mx-auto flex justify-between items-center px-8 py-3">
+          <Link href="/" className="flex items-center gap-2 text-3xl font-bold text-green-500">
+            {/* Houzz styl: zelený název */}
+            ONEPLACE
+          </Link>
+          <div className="flex items-center space-x-6">
+            {menuLinks.map(link => (
+              <Link key={link.href} href={link.href} className="flex items-center gap-2 hover:text-green-400 transition">
+                {link.icon}
+                <span>{link.label}</span>
+              </Link>
+            ))}
+            <span className="hover:text-green-400 cursor-pointer">EN</span>
+          </div>
           <div className="flex items-center space-x-4">
-            <span className="text-2xl font-bold">ONEPLACE</span>
-          </div>
-          <div className="hidden md:flex items-center space-x-8">
-            <div className="relative group">
-              <Link href="/professionals" className="hover:text-gray-300">Pro Profíky</Link>
-              <div className="absolute hidden group-hover:block bg-gray-700 text-white p-2 rounded mt-2 w-48">
-                <Link href="/professionals/overview" className="block hover:bg-gray-600 p-1">Přehled Výhod</Link>
-                <Link href="/professionals/membership" className="block hover:bg-gray-600 p-1">Členství</Link>
-              </div>
-            </div>
-            <div className="relative group">
-              <Link href="/clients" className="hover:text-gray-300">Pro Klienty</Link>
-              <div className="absolute hidden group-hover:block bg-gray-700 text-white p-2 rounded mt-2 w-48">
-                <Link href="/clients/portal" className="block hover:bg-gray-600 p-1">Projektový Portál</Link>
-                <Link href="/clients/membership" className="block hover:bg-gray-600 p-1">Členství</Link>
-              </div>
-            </div>
-            <Link href="/eshop" className="hover:text-gray-300">E-shop</Link>
-            <Link href="/properties" className="hover:text-gray-300">Nemovitosti</Link>
-            <Link href="/sustainability" className="hover:text-gray-300">Udržitelnost & Smart</Link>
-            <Link href="/magazine" className="hover:text-gray-300">Magazín</Link>
-            <Link href="/academy" className="hover:text-gray-300">Academy</Link>
-            <span className="hover:text-gray-300">🇬🇧 EN</span>
-          </div>
-          <div className="hidden md:flex items-center space-x-6">
-            <button className="hover:text-gray-300">Sign In</button>
-            <button className="bg-green-600 px-4 py-2 rounded hover:bg-green-700">Register</button>
+            <button className="flex items-center gap-2 hover:text-green-400 transition"><FaSignInAlt />Sign In</button>
+            <button className="flex items-center gap-2 bg-green-600 px-4 py-2 rounded hover:bg-green-700 transition text-white"><FaRegRegistered />Register</button>
           </div>
         </div>
       </nav>
 
-      {/* Hamburger menu pro mobil */}
-      <div className="md:hidden p-4 flex justify-between items-center bg-gray-800">
-        <span className="text-white text-2xl font-bold">🏠 ONEPLACE</span>
+      {/* Mobilní Navigace (Houzz styl) */}
+      <div className="md:hidden bg-gray-900 px-4 py-3 flex justify-between items-center sticky top-0 z-30">
+        <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-green-500">
+          ONEPLACE
+        </Link>
         <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="text-white focus:outline-none"
-          aria-label="Toggle menu"
+          onClick={() => setIsMenuOpen(true)}
+          className="text-white text-3xl focus:outline-none"
+          aria-label="Open menu"
         >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-          </svg>
+          <FaBars />
         </button>
       </div>
+      {/* Mobilní Fullscreen Menu Overlay */}
       {isMenuOpen && (
-        <div className="md:hidden absolute top-16 right-4 bg-white shadow-md rounded-lg p-4 z-10 w-48">
-          <Link href="/professionals" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Pro Profíky</Link>
-          <Link href="/clients" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Pro Klienty</Link>
-          <Link href="/eshop" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>E-shop</Link>
-          <Link href="/properties" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Nemovitosti</Link>
-          <Link href="/sustainability" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Udržitelnost & Smart</Link>
-          <Link href="/magazine" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Magazín</Link>
-          <Link href="/academy" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Academy</Link>
-          <div className="border-t my-2"></div>
-          <button className="block text-gray-600 hover:text-gray-900 py-2 w-full text-left" onClick={() => setIsMenuOpen(false)}>Sign In</button>
-          <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mt-2 w-full" onClick={() => setIsMenuOpen(false)}>Register</button>
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-95 z-50 flex flex-col">
+          <div className="flex justify-between items-center px-6 py-4">
+            <Link href="/" className="flex items-center gap-2 text-2xl font-bold text-green-500">ONEPLACE</Link>
+            <button
+              onClick={() => setIsMenuOpen(false)}
+              className="text-white text-3xl focus:outline-none"
+              aria-label="Close menu"
+            >
+              <FaTimes />
+            </button>
+          </div>
+          <div className="flex flex-col mt-8 space-y-6 px-8">
+            {menuLinks.map(link => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="flex items-center gap-4 text-lg text-white hover:text-green-400 py-2"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <span className="text-2xl">{link.icon}</span>
+                {link.label}
+              </Link>
+            ))}
+            <span className="flex items-center gap-4 text-lg text-white hover:text-green-400 py-2 cursor-pointer">
+              EN
+            </span>
+            <button
+              className="flex items-center gap-4 text-lg text-white hover:text-green-400 py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <FaSignInAlt />
+              Sign In
+            </button>
+            <button
+              className="flex items-center gap-4 text-lg bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <FaRegRegistered />
+              Register
+            </button>
+          </div>
         </div>
       )}
 
@@ -123,17 +154,17 @@ export default function HomePage() {
         <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">Naše Služby</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="text-center">
-            <span className="text-4xl text-green-600">🔧</span>
+            <FaUserTie className="mx-auto text-4xl text-green-600" />
             <h3 className="text-xl font-semibold mt-2">Pro Profíky</h3>
             <p className="text-gray-600 mt-2">Získejte zakázky a spravujte svůj profil.</p>
           </div>
           <div className="text-center">
-            <span className="text-4xl text-green-600">🏠</span>
+            <FaUser className="mx-auto text-4xl text-green-600" />
             <h3 className="text-xl font-semibold mt-2">Pro Klienty</h3>
             <p className="text-gray-600 mt-2">Najděte profesionály a spravujte projekty.</p>
           </div>
           <div className="text-center">
-            <span className="text-4xl text-green-600">🛒</span>
+            <FaShoppingCart className="mx-auto text-4xl text-green-600" />
             <h3 className="text-xl font-semibold mt-2">E-shop</h3>
             <p className="text-gray-600 mt-2">Nakupte nábytek a materiály.</p>
           </div>
@@ -166,17 +197,26 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4">
           <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">Doporučené Produkty</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-white p-4 rounded-lg shadow-md">
-              <span className="text-gray-600">Nábytek</span>
-              <p className="mt-2">Moderní židle - 5 000 Kč</p>
+            <div className="bg-white p-4 rounded-lg shadow-md flex items-center gap-3">
+              <FaChair className="text-3xl text-green-600" />
+              <div>
+                <span className="text-gray-600">Nábytek</span>
+                <p className="mt-2">Moderní židle - 5 000 Kč</p>
+              </div>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow-md">
-              <span className="text-gray-600">Stavební materiály</span>
-              <p className="mt-2">Cihly - 2 000 Kč</p>
+            <div className="bg-white p-4 rounded-lg shadow-md flex items-center gap-3">
+              <FaCubes className="text-3xl text-green-600" />
+              <div>
+                <span className="text-gray-600">Stavební materiály</span>
+                <p className="mt-2">Cihly - 2 000 Kč</p>
+              </div>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow-md">
-              <span className="text-gray-600">Chytrá domácnost</span>
-              <p className="mt-2">Chytrá žárovka - 1 500 Kč</p>
+            <div className="bg-white p-4 rounded-lg shadow-md flex items-center gap-3">
+              <FaLightbulb className="text-3xl text-green-600" />
+              <div>
+                <span className="text-gray-600">Chytrá domácnost</span>
+                <p className="mt-2">Chytrá žárovka - 1 500 Kč</p>
+              </div>
             </div>
           </div>
         </div>
@@ -188,14 +228,17 @@ export default function HomePage() {
           <h2 className="text-3xl font-bold text-gray-800 text-center mb-6">Nejnovější z Magazínu</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="bg-white p-4 rounded-lg shadow-md">
+              <FaBookOpen className="text-2xl text-green-600 mb-2" />
               <p className="text-gray-600">Inspirace & Trendy</p>
               <p className="mt-2">Nové trendy v interiéru 2025</p>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-md">
+              <FaLeaf className="text-2xl text-green-600 mb-2" />
               <p className="text-gray-600">Odborné články</p>
               <p className="mt-2">Jak vybrat elektroinstalaci</p>
             </div>
             <div className="bg-white p-4 rounded-lg shadow-md">
+              <FaUserTie className="text-2xl text-green-600 mb-2" />
               <p className="text-gray-600">Rozhovory</p>
               <p className="mt-2">Rozhovor s top malířem</p>
             </div>
