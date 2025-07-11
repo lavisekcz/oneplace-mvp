@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import Link from 'next/link'; // Import Link komponenty
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
