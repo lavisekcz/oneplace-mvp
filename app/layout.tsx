@@ -1,26 +1,22 @@
-<head>
-  ...
-  {(process.env.NODE_ENV === "development" || process.env.VERCEL_ENV === "preview") && (
-    // eslint-disable-next-line @next/next/no-sync-scripts
-    <script
-      data-recording-token="0jRcTZMmnA5ik4cBhMZlrILFUhE0MNQZQzru32nY"
-      data-is-production-environment="false"
-      src="https://snippet.meticulous.ai/v1/meticulous.js"
-    />
-  )}
-  ...
-</head>
-import './globals.css';
-import type { Metadata } from 'next';
+// app/layout.tsx
+import './globals.css'; // Import globálních stylů
+import type { Metadata } from 'next'; // Import typu Metadata z Next.js
 
+// Definice metadat pro stránku. Tyto informace se objeví v HTML <head>
+// a jsou důležité pro SEO a sdílení na sociálních sítích.
 export const metadata: Metadata = {
-  title: 'OnePlace',
-  description: 'Platforma pro domácí služby',
+  title: 'OnePlace - Platforma pro domácí služby', // Titulek stránky, který se zobrazí v záložce prohlížeče
+  description: 'Propojujeme klienty a profesionály v bydlení a nemovitostech. Najděte důvěryhodné služby a produkty s lehkostí.', // Popis stránky pro vyhledávače
 };
 
+// Hlavní layout komponenta pro celou aplikaci.
+// Obklopuje všechny ostatní stránky a sdílí společné prvky jako <head> a <body> strukturu.
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
+    // 'lang="cs"' nastavuje jazyk stránky na češtinu.
     <html lang="cs">
+      {/* <body> tag je místo, kam se renderuje veškerý obsah vaší aplikace. */}
+      {/* 'className="antialiased"' je třída z Tailwind CSS pro lepší vykreslování textu. */}
       <body className="antialiased">{children}</body>
     </html>
   );
