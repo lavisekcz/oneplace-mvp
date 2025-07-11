@@ -1,11 +1,11 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import FormInput from './components/FormInput';
-import ExpertCards from './components/ExpertCards';
-import ServiceCard from './components/ServiceCard';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import FormInput from '../components/FormInput';
+import ExpertCards from '../components/ExpertCards';
+import ServiceCard from '../components/ServiceCard';
 
 // Základní definice typů pro služby a experty.
 // Upřesněno: Odebráno [key: string]: any; pro striktnější typovou kontrolu.
