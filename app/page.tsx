@@ -38,7 +38,9 @@ export default function HomePage() {
               className="text-gray-600 focus:outline-none"
               aria-label="Toggle menu"
             >
-              <span className="text-3xl">🍔</span>
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+              </svg>
             </button>
           </div>
           <div className="hidden md:flex items-center space-x-4">
@@ -50,14 +52,14 @@ export default function HomePage() {
             <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Register</button>
           </div>
           {isMenuOpen && (
-            <div className="md:hidden absolute top-16 right-4 bg-white shadow-md rounded-lg p-4 z-10">
-              <Link href="#professionals" className="block text-gray-600 hover:text-gray-900 py-2">Professionals</Link>
-              <Link href="#search" className="block text-gray-600 hover:text-gray-900 py-2">Search Services</Link>
-              <Link href="#how-it-works" className="block text-gray-600 hover:text-gray-900 py-2">How it Works</Link>
+            <div className="md:hidden absolute top-16 right-4 bg-white shadow-md rounded-lg p-4 z-10 w-48">
+              <Link href="#professionals" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Professionals</Link>
+              <Link href="#search" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>Search Services</Link>
+              <Link href="#how-it-works" className="block text-gray-600 hover:text-gray-900 py-2" onClick={() => setIsMenuOpen(false)}>How it Works</Link>
               <div className="border-t my-2"></div>
-              <span className="block text-gray-600 py-2">🇬🇧 EN</span>
-              <button className="block text-gray-600 hover:text-gray-900 py-2 w-full text-left">Sign In</button>
-              <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mt-2 w-full">Register</button>
+              <span className="block text-gray-600 py-2" onClick={() => setIsMenuOpen(false)}>🇬🇧 EN</span>
+              <button className="block text-gray-600 hover:text-gray-900 py-2 w-full text-left" onClick={() => setIsMenuOpen(false)}>Sign In</button>
+              <button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 mt-2 w-full" onClick={() => setIsMenuOpen(false)}>Register</button>
             </div>
           )}
         </div>
@@ -120,4 +122,34 @@ export default function HomePage() {
         <div>
           <span className="text-3xl text-green-600">🛡️</span>
           <h3 className="text-xl font-semibold mt-2">Verified Professionals</h3>
-          <p className="text-gray-600 mt-2">All our professionals
+          <p className="text-gray-600 mt-2">All our professionals undergo thorough background checks and skill verification.</p>
+        </div>
+        <div>
+          <span className="text-3xl text-green-600">🔧</span>
+          <h3 className="text-xl font-semibold mt-2">Wide Range of Services</h3>
+          <p className="text-gray-600 mt-2">From minor repairs to major renovations, we have specialists for every home service need.</p>
+        </div>
+        <div>
+          <span className="text-3xl text-green-600">⏱️</span>
+          <h3 className="text-xl font-semibold mt-2">Fast Response</h3>
+          <p className="text-gray-600 mt-2">Get quotes quickly and schedule appointments at your convenience, often same-day.</p>
+        </div>
+      </section>
+
+      {/* Další sekce (Our Services) */}
+      <section className="py-16 bg-gray-100 text-center">
+        <h2 className="text-3xl font-bold text-gray-800 mb-4">Our Services</h2>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-6">
+          Whatever project you have in mind, our network of qualified professionals is ready to deliver exceptional results.
+        </p>
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4 max-w-2xl mx-auto">
+          <span className="text-2xl text-green-600">🏠</span>
+          <span className="text-2xl text-green-600">🔨</span>
+          <span className="text-2xl text-green-600">🔧</span>
+          <span className="text-2xl text-green-600">⚡</span>
+          <span className="text-2xl text-green-600">🎨</span>
+        </div>
+      </section>
+    </div>
+  );
+}
